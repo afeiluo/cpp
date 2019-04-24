@@ -72,25 +72,26 @@ void DeleteEntry(phone phonebook[])
   scanf("%s", deleteName); //place into temp string
   printf("Enter Surname: ");
   scanf("%s", deleteSurname); //place into temp string
+  int find = 0;
   for (x = 0; x < counter; x++)
   {
-    if (strcmp(deleteName, phonebook[x].Name) == 0) //compare deleteName to phonebook.Name
+    if (strcmp(deleteName, phonebook[x].Name) == 0 && strcmp(deleteSurname, phonebook[x].Surname) == 0) //compare deleteName to phonebook.Name
     {
-      for (x = 0; x < counter; x++)
+      for (;x < counter - 1; x++)
       {
-        if (strcmp(deleteSurname, phonebook[x].Surname) == 0) //If deleteSurname matches phonebook.Surname
-        {
-          strcpy(phonebook[x].Name, nullStr);        //Put null into Name
-          strcpy(phonebook[x].Surname, nullStr);     //Null into Surname
-          strcpy(phonebook[x].PhoneNumber, nullStr); //Null into PhoneNumber
-          printf("Contact removed from phonebook.\n");
-          counter--;
-          break;
-        }
+        strcpy(phonebook[x].Name, phonebook[x + 1].Name);               //Put null into Name
+        strcpy(phonebook[x].Surname, phonebook[x + 1].Surname);         //Null into Surname
+        strcpy(phonebook[x].PhoneNumber, phonebook[x + 1].PhoneNumber); //Null into PhoneNumber
+        printf("Contact removed from phonebook.\n");
       }
+      counter--;
+      find = 1;
+      break;
     }
-    else
-      printf("Invalid entry--try again.\n");
+  }
+  if (find = 0)
+  {
+    printf("Invalid entry--try again.\n");
   }
 }
 // Function def to print contacts
